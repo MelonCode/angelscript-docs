@@ -1,36 +1,94 @@
 ---
-title: Welcome to Starlight
-description: Get started building your docs site with Starlight.
+title: Unreal Engine Angelscript
+description: A full-featured scripting language for Unreal Engine
 template: splash
 hero:
-  tagline: Congrats on setting up a new Starlight project!
+  tagline: A set of engine modifications and a plugin for UE5 that integrates a full-featured scripting language
   image:
-    file: ../../assets/houston.webp
+    file: ../../assets/logo.png
   actions:
-    - text: Example Guide
-      link: /guides/example/
+    - text: Get Started
+      link: /getting-started/installation/
       icon: right-arrow
-    - text: Read the Starlight docs
-      link: https://starlight.astro.build
+    - text: Visit GitHub
+      link: https://github.com/Hazelight/UnrealEngine-Angelscript
       icon: external
       variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Card, CardGrid } from "@astrojs/starlight/components";
 
-## Next steps
+# Unreal Engine Angelscript
+
+UnrealEngine-Angelscript is actively developed by [Hazelight](http://hazelight.se), creators of [It Takes Two](https://www.ea.com/games/it-takes-two), which was shipped with the majority of its gameplay written in angelscript. More recently, [The Talos Principle 2](https://www.thetalosprinciple.com/) was also shipped by [Croteam](http://www.croteam.com/) using UnrealEngine-Angelscript.
+
+The unreal plugin that integrates angelscript is open source, and has received contributions from studios in Stockholm and globally.
+
+Come talk to us in our [Discord Server](https://discord.gg/39wmC2e) if you're interested or have questions!
+
+## Mission Statement
 
 <CardGrid stagger>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
-	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
-	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
-	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
-	</Card>
+  <Card title="Avoid Blueprint Spaghetti" icon="warning">
+    When making gameplay systems of higher complexity, blueprint visual
+    scripting can easily lead to unmaintainable spaghetti.
+  </Card>
+  <Card title="Fast Iteration" icon="rocket">
+    Scripts can be reloaded instantly in the editor, letting developers focus on
+    creating cool shit instead of waiting for compiles and editor restarts.
+  </Card>
+  <Card title="Improved Cooperation" icon="puzzle">
+    Because programmers and designers are no longer separated by the
+    C++/Blueprint divide, they can work closely together using the same systems
+    and tools.
+  </Card>
+  <Card title="Performance" icon="approve-check">
+    Angelscript performs significantly better than blueprint for game scripting,
+    and approaches native C++ performance when using transpiled scripts in a
+    shipping build.
+  </Card>
 </CardGrid>
+
+## Features
+
+### Familiar but Simplified
+
+![Code example](/img/scripting.png)
+
+Programmers used to working in Unreal C++ will find the scripts instantly familiar, but with many key simplifications to make life easier for designers and avoid common C++ pitfalls.
+
+### Script Hotreload for Fast Iteration
+
+See your changes to scripted actors and components reflected immediately when you hit save.
+
+Non-structural changes can be reloaded _while_ playing your game for lightning-fast iteration.
+
+![Properties](/img/properties.png)
+
+### Scripting with Full Editor Support
+
+To make scripting easier, a [Visual Studio Code Extension](https://marketplace.visualstudio.com/items?itemName=Hazelight.unreal-angelscript) is available implementing full Language Server Protocol support.
+
+This includes support for many editor features, such as:
+
+- Code Autocompletion
+- Error Diagnostics
+- Rename Symbol
+- Find All References
+- Semantic Highlighting
+
+![Timer example](/img/timer.png)
+
+### Integration with existing C++ and Blueprint workflows
+
+Angelscript classes can override any BlueprintImplementableEvent you expose from C++, and can be used seamlessly as base classes for child blueprints.
+
+Use whatever combination of tools fits your workflow best.
+
+![Functions example](/img/functions.png)
+
+### Debugging Support Through Visual Studio Code
+
+Debug your script code through the Visual Studio Code extension. Set breakpoints and inspect variables, and step through your scripts to find issues.
+
+![Debugging example](/img/debug.png)
