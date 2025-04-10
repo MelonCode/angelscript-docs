@@ -7,7 +7,10 @@ description: Games, tools, and community resources for UnrealEngine-Angelscript
 
 - [It Takes Two](https://www.ea.com/games/it-takes-two), by [Hazelight](https://hazelight.se) (2021)
 - [The Talos Principle 2](https://www.thetalosprinciple.com/), by [Croteam](http://www.croteam.com/) (2023)
-- [THE FINALS](https://www.reachthefinals.com/), by [Embark Studios](https://www.embark-studios.com/) (TBA)
+- [THE FINALS](https://www.reachthefinals.com/), by [Embark Studios](https://www.embark-studios.com/) (2023)
+- [Archons](https://store.steampowered.com/app/2779570/Archons/), by [BulletHell Studios](https://www.bullethellstudios.com/) (2024)
+- [Split Fiction](https://www.ea.com/games/split-fiction/split-fiction), by [Hazelight](https://hazelight.se) (2025)
+- [ARC Raiders](https://www.arcraiders.com/), by [Embark Studios](https://www.embark-studios.com/) (TBA)
 
 ### Development Resources
 
@@ -18,6 +21,8 @@ description: Games, tools, and community resources for UnrealEngine-Angelscript
 
 ### Documentation and Examples
 
+- [Creating Widgets with Unreal & Angelscript](https://www.predictable-paul.com/blog/unreal-angelscript-widgets/)  
+  A nice overview on how to interact with UMG widget blueprints through script
 - [UnrealEngine-Angelscript-FpsStarter](https://github.com/zuru33/UnrealEngine-Angelscript-FpsStarter)  
   Example scripts for the Unreal Engine 5 FPS Starter C++ project ported to AngelScript
 

@@ -22,6 +22,9 @@ Make sure you have the following set up:
   Opening your project will automatically create an empty `Script/` folder inside your project folder.
 - Start Visual Studio Code, and from the menu `File -> Open Folder`, open your new `MyProject/Script/` folder.
 
+> **Tip:** You can also click the "Open Angelscript workspace" option from the Tools menu to automatically open the scripts folder in Visual Studio Code.
+> ![Open Angelscript workspace option](/img/open-workspace.png)
+
 ### Creating the Actor Class
 
 Within Visual Studio Code, create a new file and call it `IntroductionActor.as`.

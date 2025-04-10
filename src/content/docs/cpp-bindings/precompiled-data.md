@@ -40,6 +40,8 @@ In addition to the cache, the generate step will also output a folder called `AS
 
 You can copy this folder into your project's source folder and then rebuild the `.exe` for your game in the appropriate configuration.
 
+When including the `AS_JITTED_CODE/` folder in your project ensure that the module that it's being included in has `AngelscriptCode` as a dependency, i.e. within your project's Build.cs file.
+
 Using the new `.exe` compiled with the included `AS_JITTED_CODE/` and in combination with the `PrecompiledScript.Cache` file will let the
 angelscript plugin automatically run the correct optimized C++ code when executing angelscript.
 

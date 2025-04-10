@@ -1,0 +1,4 @@
+[submodule "zola-docs"]
+  path = zola-docs
+  url = git@github.com:Hazelight/Docs-UnrealEngine-Angelscript.git
+  branch = angelscript-master

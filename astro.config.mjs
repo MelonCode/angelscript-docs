@@ -18,6 +18,24 @@ export default defineConfig({
           link: "/",
         },
         {
+          label: "Resources",
+          items: [
+            {
+              label: "Script API Reference",
+              link: "https://angelscript.hazelight.se/api/",
+            },
+            {
+              label: "Original Documentation",
+              link: "https://angelscript.hazelight.se/",
+            },
+            {
+              label: "Source Repository",
+              link: "https://github.com/Hazelight/Docs-UnrealEngine-Angelscript",
+            },
+          ],
+          collapsed: false,
+        },
+        {
           label: "Getting Started",
           items: [
             { label: "Installation", link: "/getting-started/installation/" },
@@ -96,58 +114,8 @@ export default defineConfig({
             { label: "License", link: "/project/license/" },
           ],
         },
-        {
-          label: "External Resources",
-          items: [
-            {
-              label: "Script API Reference",
-              link: "https://angelscript.hazelight.se/api/",
-            },
-            {
-              label: "Original Documentation",
-              link: "https://angelscript.hazelight.se/",
-            },
-            {
-              label: "Source Repository",
-              link: "https://github.com/Hazelight/Docs-UnrealEngine-Angelscript",
-            },
-          ],
-        },
       ],
       customCss: ["./src/styles/custom.css"],
-      head: [
-        {
-          tag: "script",
-          content: `
-            document.addEventListener('DOMContentLoaded', () => {
-              // Find the right sidebar (table of contents)
-              const sidebar = document.querySelector('.right-sidebar');
-              
-              if (!sidebar) return;
-              
-              // Add click event to the sidebar toggle button
-              sidebar.addEventListener('click', (e) => {
-                // Check if the click was on the toggle button (::before element)
-                const rect = sidebar.getBoundingClientRect();
-                const clickX = e.clientX - rect.left;
-                const clickY = e.clientY - rect.top;
-                
-                // If the click was in the top-right corner (where our toggle button is)
-                if (clickX > rect.width - 30 && clickY < 30) {
-                  document.body.classList.toggle('toc-collapsed');
-                }
-              });
-              
-              // Add keydown event for Escape key to expand the sidebar
-              document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && document.body.classList.contains('toc-collapsed')) {
-                  document.body.classList.remove('toc-collapsed');
-                }
-              });
-            });
-          `,
-        },
-      ],
     }),
   ],
 });

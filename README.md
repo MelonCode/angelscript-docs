@@ -25,61 +25,14 @@ To build the site:
 npm run build
 ```
 
-## Migration Guide
-
-This repository contains a migration of the original Zola-based documentation to Starlight. The migration is ongoing, with the following progress:
-
-- [x] Basic project setup
-- [x] Home page
-- [x] Getting Started section
-  - [x] Introduction
-  - [x] Installation
-- [ ] Scripting section (partial)
-- [ ] Project section (not started)
-- [ ] C++ Bindings section (not started)
-
-### How to Continue the Migration
-
-1. **Identify content to migrate**: Look at the `legacy-docs/content` directory to find content that still needs to be migrated
-2. **Create new Markdown files**: For each section in the legacy docs, create equivalent Markdown files in the `src/content/docs` directory
-3. **Convert content format**:
-   - Update frontmatter to use Starlight's format
-   - Convert code blocks from custom format to standard Markdown
-   - Use `typescript` for code highlighting (since Angelscript isn't supported natively)
-   - Update internal links to use the new URL structure
-4. **Copy images**: If you need additional images, copy them from `legacy-docs/static/img` to `public/img`
-5. **Test the site**: After each migration, run `npm run dev` to check your changes
-
-### Content Organization
+## Content Organization
 
 The content is organized into the following sections:
 
 - `/getting-started/` - Basic introduction and setup guides
 - `/scripting/` - Detailed documentation on the scripting language
-- `/project/` - Project setup and organization
+- `/project/` - Project setup, organization, and community resources
 - `/cpp-bindings/` - Working with C++ bindings
-
-### Code Block Conversion
-
-When migrating code blocks, convert them from the custom HTML format to standard Markdown:
-
-From:
-
-```html
-<div class="code_block" style="...">
-  <!-- complex HTML structure -->
-</div>
-```
-
-To:
-
-````
-```typescript
-class ATestActor : AActor
-{
-    // Your code here
-}
-````
 
 ## License
 
@@ -91,19 +44,11 @@ npm create astro@latest -- --template starlight
 
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/starlight/tree/main/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/starlight/tree/main/examples/basics)
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/withastro/starlight&create_from_path=examples/basics)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fwithastro%2Fstarlight%2Ftree%2Fmain%2Fexamples%2Fbasics&project-name=my-starlight-docs&repository-name=my-starlight-docs)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
 ## 🚀 Project Structure
 
 Inside of your Astro + Starlight project, you'll see the following folders and files:
 
 ```
-
 .
 ├── public/
 ├── src/
@@ -113,7 +58,6 @@ Inside of your Astro + Starlight project, you'll see the following folders and f
 ├── astro.config.mjs
 ├── package.json
 └── tsconfig.json
-
 ```
 
 Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on its file name.

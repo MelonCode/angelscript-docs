@@ -32,6 +32,13 @@ The default access specifiers for properties in script can be configured from Pr
 
 The intent of this is to simplify property specifiers. Since `UPROPERTY()` is not needed for correct garbage collection, you should only specify it when you want it to be accessible in the editor/blueprint.
 
+### Default Callability for Functions
+
+Functions declared with `UFUNCTION()` are `BlueprintCallable` by default, even when this is not specified explicitly.
+This is intended to simplify function declarations, as making a script function a `UFUNCTION()` is generally already an indicator of wanting it to be called from blueprint.
+
+This behavior can be turned off from Project Settings, if you prefer requiring `BlueprintCallable` to be explicit.
+
 ### Use the `default` Keyword Instead of Constructors
 
 Instead of using object constructors, which can run at unpredictable times during hot reloads, any default values for properties should be specified in the class body.

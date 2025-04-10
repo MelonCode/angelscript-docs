@@ -1,7 +1,6 @@
 ---
 title: FName Literals
 description: Using FName literals for efficient name handling in Angelscript
-template: "splash"
 ---
 
 A lot of unreal systems use `FName` to efficiently pass around arbitrary
@@ -20,7 +19,7 @@ the nametable lookup from runtime.
 Name literals have many uses. An example of using a name literal to bind
 a delegate to a `UFUNCTION()` in angelscript:
 
-```typescript
+```cpp
 delegate void FExampleDelegate();
 
 class ANameLiteralActor : AActor

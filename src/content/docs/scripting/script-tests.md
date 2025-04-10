@@ -58,7 +58,9 @@ This will be used by all unit tests.
 
 ## Integration Tests
 
-Each integration test has a map where you can draw up any geometry or place any actors you like.
+Integration tests are for testing larger or longer code-flows and gameplay.
+
+By default, each integration test has a map where you can draw up any geometry or place any actors you like.
 
 Add this to for instance MyTestName_IntegrationTest.as:
 
@@ -77,6 +79,17 @@ You can also configure the integration test map dir with this setting in your .i
 [/Script/AngelscriptCode.AngelscriptTestSettings]
 IntegrationTestMapRoot=/Game/Testing/
 ```
+
+If you would like to use a different map for an integration test, or the same map for multiple tests (e.g. testing in your existing level .umap files), create a second function with the format `FString IntegrationTest_MyTestName_GetMapName()` and return the full path to the map. This is something like `/Game/YourProject/YourMap`. You can right click the map and copy the reference to see it.
+
+```typescript
+FString IntegrationTest_MyTestName_GetMapName()
+{
+    return "/Game/YourProject/Maps/YourMap";
+}
+```
+
+Note: changing levels isn't supported at the moment, it breaks the GameWorld context passed to the FAngelscriptContext that the angelscript code is being executed within.
 
 You can retrieve placed actors like this (or spawn them in the test):
 
@@ -206,6 +219,10 @@ The game engine will keep ticking as long as Update returns false. This means yo
 You can specify `default bAllowTimeout = true` on a latent command to allow it to time out. This is useful if you want to test that something is _not_ happening
 (e.g. check actor doesn't move out of bounds during 5 seconds).
 
+### Client/Server vs Standalone
+
+The default behaviour is to run the integration tests in a client/dedicated-server model. This will break some assumptions and code that singleplayer games use. To run it in standalone mode instead, disable `Project Settings -> Angelscript Test Settings -> Use Client Server Model`.
+
 ### Running Integration Tests
 
 Integration tests don't run on hot reload like unit tests, so you need to invoke them through the Test Automation window in Unreal. They are run just like unit tests, see above.
@@ -246,12 +263,114 @@ Angelscript.IntegrationTest.Your.Path.ComplexIntegrationTest_PotionsAreTooStrong
 Angelscript.IntegrationTest.Your.Path.ComplexIntegrationTest_PotionsAreTooStrongForKnight[DA_Potion3]
 ```
 
+### A Full Example
+
+```typescript
+/**
+ * An example of an integration test to test that saves are backwards compatible (via
+ * upgrades/migrations). This could be in a file called
+ * Testing/UpgradeSaveGame_IntegrationTest.as, or
+ * AnythingElse/DoesntMatter_IntegrationTest.as.
+ *
+ * Assume that we changed the protected variable that ExampleGameMode::GetCash() uses,
+ * between v1 and v2, and we want to ensure that our upgrade code (not shown)
+ * successfully copies it from the old variable to the new.
+ *
+ * Note that angelscript does a lot of lifting around turning the automation framework
+ * into integration tests. See the code for more details.
+ */
+
+// define the overall test. The naming standard is important. you run this from Session
+// Frontend -> Automation Tab. Search for e.g. "V1" to show this function, then tick it
+// to select it.
+void IntegrationTest_UpgradeSaveGameV1(FIntegrationTest& T)
+{
+    // queue the object that can run for more than one frame, to validate a long-running test
+    T.AddLatentAutomationCommand(UTestUpgradeSaveGameV1());
+}
+
+// A function that returns an FString, with the same name as the integration test + a
+// _GetMapName() suffix allows us to override the default behaviour of requiring a map
+// name matching the test name.
+FString IntegrationTest_UpgradeSaveGameV1_GetMapName()
+{
+    return "/Game/IS/Maps/ISMainMap";
+}
+
+// bulk of the work is here. You can have multiple of these
+class UTestUpgradeSaveGameV1 : ULatentAutomationCommand
+{
+    // the sentinal value we expect to see in the loaded save. in the v1 save this is
+    // stored in ExampleGameMode::Cash. In the v2 save, ExampleGameMode::GetCash()
+    // should be able to retrieve this from the new CashTest variable.
+    // different to what CashTest defaults to.
+    float CashFromV1Save = 12345.0;
+
+    // manually create a save in the previous version to use in the test here.
+    FString V1SaveFileName = "IntegrationTest_UpgradeSaveGameV1";
+
+    // This runs at the start of this command's lifetime in the test. GetWorld(), and
+    // therefore all the automatic context places it's used, should be valid here
+    // (unless you try changing the map)
+    UFUNCTION(BlueprintOverride)
+    void Before()
+    {
+        auto GM = ExampleGameMode::Get();
+        auto ExampleSaveSystem = UExampleSaveSystem::Get();
+        ExampleSaveSystem.SelectSaveFile(V1SaveFileName);
+        // can't change the map in an integration test, so don't do a full map reload. Just deserialize
+        ExampleSaveSystem.LoadWithoutReload(V1SaveFileName);
+    }
+
+    // runs each tick. Return true to pass the test. The test fails if the timeout
+    // (default 5 seconds) is hit and this hasn't returned true.
+    UFUNCTION(BlueprintOverride)
+    bool Update()
+    {
+        auto GM = ExampleGameMode::Get();
+        // if the gamemode is loaded from the save, and the upgrade code has run
+        // successfully, the values should match.
+        if (GM != nullptr && Math::IsNearlyEqual(CashFromV1Save, GM.GetCash()))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    // The output in the automation test log. Show expected success condition and
+    // current state for debugging when it fails. Important to check GetWorld() in case
+    // it runs too early.
+    UFUNCTION(BlueprintOverride)
+    FString Describe() const
+    {
+        float ActualCash = -1.0;
+        if (GetWorld() != nullptr)
+        {
+            auto GM = ExampleGameMode::Get();
+            if (GM != nullptr)
+            {
+                ActualCash = GM.GetCash();
+            }
+        }
+        return f"Expected cash: {CashFromV1Save}, Actual cash: {ActualCash} (-1 is null)";
+    }
+}
+```
+
 ## Code Coverage
 
 Enable code coverage in Project Settings > Editor > Angelscript Test settings (or pass -as-enable-code-coverage on the command line). Note, code coverage slows down editor startup by ~20 seconds so remember to turn it off later.
 
+![CoverageToggle](/img/coverage-toggle.png)
+
 Run some tests as described above. The editor will write a report to Saved/CodeCoverage. Note: it's overwritten each time you start a new test run.
+
+![CoverageDir](/img/coverage-dir.png)
 
 Open index.html to see a summary for all your angelscript.
 
+![CoverageIndex](/img/coverage-index.png)
+
 Open individual files to see their line coverage.
+
+![CoverageDir](/img/coverage-file.png)
