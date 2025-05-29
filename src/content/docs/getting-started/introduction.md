@@ -33,7 +33,7 @@ Files with the `.as` extension placed under your project's `Script/` folder are 
 
 Inside `IntroductionActor.as`, let's declare a new Actor class:
 
-```typescript
+```angelscript
 class AIntroductionActor : AActor
 {
 }
@@ -56,7 +56,7 @@ Immediately after hitting "Save" on our script file, it should become available 
 We have a totally empty actor in the level now with no functionality.
 As an example, let's make this actor perform a configurable countdown:
 
-```typescript
+```angelscript
 class AIntroductionActor : AActor
 {
     UPROPERTY()
@@ -115,7 +115,7 @@ Let's add some components to it! We want a `Scene Component` as the root, and th
 
 Add the following at the top of your actor code:
 
-```typescript
+```angelscript
 class AIntroductionActor : AActor
 {
     UPROPERTY(DefaultComponent, RootComponent)
@@ -166,7 +166,7 @@ Now that we have a blueprint, we can change the script to work together with its
 
 In our `IntroductionActor.as`, change the script code for its BeginPlay and Tick functions to this:
 
-```typescript
+```angelscript
     UFUNCTION(BlueprintOverride)
     void BeginPlay()
     {

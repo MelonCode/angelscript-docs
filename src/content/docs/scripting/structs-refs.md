@@ -7,7 +7,7 @@ Classes declared in script are always types of `UObject`, and are part of unreal
 
 You can also make structs in script, which behave as value types:
 
-```typescript
+```angelscript
 struct FExampleStruct
 {
     /* Properties with UPROPERTY() in a struct will be accessible in blueprint. */
@@ -28,7 +28,7 @@ struct FExampleStruct
 
 Structs can be passed and returned from script functions and `UFUNCTION`s as normal:
 
-```typescript
+```angelscript
 UFUNCTION()
 FExampleStruct CreateExampleStruct(float Number)
 {
@@ -53,7 +53,7 @@ That means properties of a struct parameter cannot be changed, and non-const met
 
 If needed, you can take a reference to a struct to modify it:
 
-```typescript
+```angelscript
 // Change the parameter struct so its number is randomized between 0.0 and 1.0
 UFUNCTION()
 void RandomizeNumberInStruct(FExampleStruct& Struct)
@@ -68,7 +68,7 @@ When a function with a struct reference is called from a blueprint node, the str
 
 When you want a struct parameter to be an ouput value only, declare the reference as `&out` in script. This works to create output pins for primitives as well:
 
-```typescript
+```angelscript
 UFUNCTION()
 void OutputRandomizedStruct(FExampleStruct&out OutputStruct, bool&out bOutSuccessful)
 {

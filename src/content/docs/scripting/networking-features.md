@@ -22,7 +22,7 @@ be done using `default` statements.
 
 Example:
 
-```typescript
+```angelscript
 class AReplicatedActor : AActor
 {
     // Set the actor's replicates property to default to true,

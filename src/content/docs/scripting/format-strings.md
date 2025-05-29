@@ -13,7 +13,7 @@ Curly braces inside formatted strings can be escaped by doubling up. That is, `f
 
 An example of some of the usages:
 
-```typescript
+```angelscript
 // Format Strings begin with f" and can hold expressions
 // inside braces to replace within the string.
 Print(f"Called from actor {GetName()} at location {ActorLocation}");

@@ -8,7 +8,7 @@ description: Creating and using functions and events in Angelscript
 Functions can be declared as methods in a class or globally.
 By default any function you declare can only be called from script and is not accessible to blueprint.
 
-```typescript
+```angelscript
 class AExampleActor : AActor
 {
     void MyMethod()
@@ -30,7 +30,7 @@ void MyGlobalFunction(AActor Actor)
 
 To make it so a function can be called from blueprint, add a `UFUNCTION()` specifier above it.
 
-```typescript
+```angelscript
 class AExampleActor : AActor
 {
     UFUNCTION()
@@ -48,7 +48,7 @@ class AExampleActor : AActor
 To override a Blueprint Event declared from a C++ parent class, use the `BlueprintOverride` specifier.
 You will use this often to override common events such as `BeginPlay` or `Tick`:
 
-```typescript
+```angelscript
 class AExampleActor : AActor
 {
     UFUNCTION(BlueprintOverride)
@@ -78,7 +78,7 @@ When the cursor is within a class, you can click the Lightbulb icon (or press <k
 Often you will want to create a blueprint that inherits from a script parent class.
 In order to make a function so it can be overridden from a child blueprint, add the `BlueprintEvent` specifier.
 
-```typescript
+```angelscript
 class AExampleActor : AActor
 {
     UFUNCTION(BlueprintEvent)
@@ -99,7 +99,7 @@ This way you can guarantee that the script code always runs in addition to nodes
 
 For example, a pickup actor might do:
 
-```typescript
+```angelscript
 class AExamplePickupActor : AActor
 {
     void PickedUp()
@@ -125,7 +125,7 @@ It will then be available to be called from any blueprint like a static function
 
 This lets you create functions not bound to a class, similar to how Blueprint Function Libraries work.
 
-```typescript
+```angelscript
 // Example global function that moves an actor somewhat
 UFUNCTION()
 void ExampleGlobalFunctionMoveActor(AActor Actor, FVector MoveAmount)
@@ -141,7 +141,7 @@ void ExampleGlobalFunctionMoveActor(AActor Actor, FVector MoveAmount)
 When overriding a script function with another script function, you can use the same `Super::` syntax from Unreal C++ to call the parent function.
 Note that script methods can be overridden without needing `BlueprintEvent` on the base function (all script methods are virtual). However, when overriding a `BlueprintEvent`, you _will_ need to specify `BlueprintOverride` on the overrides.
 
-```typescript
+```angelscript
 class AScriptParentActor : AActor
 {
     void PlainMethod(FVector Location)

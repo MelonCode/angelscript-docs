@@ -10,7 +10,7 @@ The initial value of a property can be specified in the class body.
 
 By default any plain property you declare can only be used from script and is not accessible to blueprint or in the editor.
 
-```typescript
+```angelscript
 class AExampleActor : AActor
 {
     float ScriptProperty = 10.0;
@@ -21,7 +21,7 @@ class AExampleActor : AActor
 
 To expose a property to unreal, add a `UPROPERTY()` specifier above it.
 
-```typescript
+```angelscript
 class AExampleActor : AActor
 {
     // Tooltip of the property
@@ -34,7 +34,7 @@ class AExampleActor : AActor
 
 To be more specific about where/when a property should be editable from the editor UI, you can use one of the following specifiers:
 
-```typescript
+```angelscript
 class AExampleActor : AActor
 {
     // Can only be edited from the default values in a blueprint, not on instances in the level
@@ -61,7 +61,7 @@ When a property is declared with `UPROPERTY()`, it also automatically becomes us
 
 To limit the blueprint from reading or writing to the property, you can use one of the following specifiers:
 
-```typescript
+```angelscript
 class AExampleActor : AActor
 {
     // This property can be both read and written from blueprints
@@ -85,7 +85,7 @@ class AExampleActor : AActor
 It can be helpful to specify a `Category` for your properties.
 Categories help organize your properties in the editor UI:
 
-```typescript
+```angelscript
 class AExampleActor : AActor
 {
     UPROPERTY(Category = "First Category")
@@ -104,7 +104,7 @@ class AExampleActor : AActor
 Script methods that start with `Get..()` or `Set..()` can use the `property` keyword to allow them to be used as if they are properties.
 When the property value is used within other code, the appropriate Get or Set function is automatically called:
 
-```typescript
+```angelscript
 class AExampleActor : AActor
 {
     // The `property` keyword lets this function be used as a property instead
@@ -134,7 +134,7 @@ For C++ binds, both forms are valid, so `ActorLocation` and `GetActorLocation()`
 
 If you want a property or function to be `private` or `protected` in script, each individual property needs to be specified that way:
 
-```typescript
+```angelscript
 class AExampleActor : AActor
 {
     private FVector Offset;

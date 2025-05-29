@@ -60,7 +60,7 @@ To verify that everything is set up correctly:
 
 1. Create a new script file in your project's `Script/` folder (it will be created automatically when you first open the project)
 2. Add a simple actor class:
-   ```typescript
+   ```angelscript
    class ATestActor : AActor
    {
    }

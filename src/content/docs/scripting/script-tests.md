@@ -10,7 +10,7 @@ runs as well.
 
 ## Unit Tests
 
-```typescript
+```angelscript
 void Test_NameOfTheTestCase(FUnitTest & T);
 {
   // Fails the test.
@@ -64,7 +64,7 @@ By default, each integration test has a map where you can draw up any geometry o
 
 Add this to for instance MyTestName_IntegrationTest.as:
 
-```typescript
+```angelscript
 void IntegrationTest_MyTestName(FIntegrationTest & T);
 {
 }
@@ -82,7 +82,7 @@ IntegrationTestMapRoot=/Game/Testing/
 
 If you would like to use a different map for an integration test, or the same map for multiple tests (e.g. testing in your existing level .umap files), create a second function with the format `FString IntegrationTest_MyTestName_GetMapName()` and return the full path to the map. This is something like `/Game/YourProject/YourMap`. You can right click the map and copy the reference to see it.
 
-```typescript
+```angelscript
 FString IntegrationTest_MyTestName_GetMapName()
 {
     return "/Game/YourProject/Maps/YourMap";
@@ -93,7 +93,7 @@ Note: changing levels isn't supported at the moment, it breaks the GameWorld con
 
 You can retrieve placed actors like this (or spawn them in the test):
 
-```typescript
+```angelscript
 // Looks up an actor in the map
 AActor GetActorByLabel(UClass Class, const FName& Label)
 {
@@ -148,7 +148,7 @@ These execute in sequence. Each action can take multiple engine frames to execut
 
 The test can enqueue latent commands of its own:
 
-```typescript
+```angelscript
 void IntegrationTest_AlienShootsRepeatedly(FIntegrationTest& T)
 {
     AActor A = GetActorByLabel(ABulletSponge::StaticClass(), n"BulletSponge");
@@ -168,7 +168,7 @@ The action is enqueued using `T.AddLatentAutomationCommand`. The set of latent a
 
 AddLatentAutomationCommand takes a `ULatentAutomationCommand`:
 
-```typescript
+```angelscript
 UCLASS()
 class ABulletSponge : AStaticMeshActor
 {
@@ -233,7 +233,7 @@ To run integration tests from the command line, run the same line as for unit te
 
 You can also generate test cases dynamically:
 
-```typescript
+```angelscript
 void ComplexIntegrationTest_PotionsAreTooStrongForKnight_GetTests(TArray<FString>& OutTestCommands)
 {
    for (APotion Potion: MyGame::GetPotionRegistry().GetAllPotions())
@@ -265,7 +265,7 @@ Angelscript.IntegrationTest.Your.Path.ComplexIntegrationTest_PotionsAreTooStrong
 
 ### A Full Example
 
-```typescript
+```angelscript
 /**
  * An example of an integration test to test that saves are backwards compatible (via
  * upgrades/migrations). This could be in a file called

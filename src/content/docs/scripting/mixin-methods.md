@@ -9,7 +9,7 @@ This can be useful either to add methods to types from C++, or to separate out f
 To do this, declare a global function with the `mixin` keyword.
 The first parameter of the mixin function is filled with the object it is called on.
 
-```typescript
+```angelscript
 // Mixin method that teleports any actor
 // The first, 'Self' parameter gets set to the actor it is called on
 mixin void ExampleMixinTeleportActor(AActor Self, FVector Location)
@@ -29,7 +29,7 @@ void Example_MixinMethod()
 When creating mixins for structs, you can take a reference to the struct as the first parameter.
 This allows changes to be made to it:
 
-```typescript
+```angelscript
 mixin void SetVectorToZero(FVector& Vector)
 {
     Vector = FVector(0, 0, 0);

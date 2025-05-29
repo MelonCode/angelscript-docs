@@ -19,7 +19,7 @@ the nametable lookup from runtime.
 Name literals have many uses. An example of using a name literal to bind
 a delegate to a `UFUNCTION()` in angelscript:
 
-```cpp
+```angelscript
 delegate void FExampleDelegate();
 
 class ANameLiteralActor : AActor

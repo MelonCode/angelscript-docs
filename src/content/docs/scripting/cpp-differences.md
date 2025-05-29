@@ -16,7 +16,7 @@ There is no `->` arrow operator in script, everything happens with `.` dots.
 
 > **Note:** Unlike in C++, it is **not** necessary to declare a property as `UPROPERTY()` in order to avoid it being garbage collected. All object references in script are automatically inserted into the GC.
 
-```typescript
+```angelscript
 void TeleportActorToOtherActor(AActor ActorReference, AActor TeleportToActor)
 {
     FTransform TeleportToTransform = TeleportToActor.GetActorTransform();
@@ -45,7 +45,7 @@ Instead of using object constructors, which can run at unpredictable times durin
 
 For setting values on subobjects, use the `default` keyword:
 
-```typescript
+```angelscript
 class AExampleActor : AActor
 {
     // Set default values for class properties in the class body
@@ -69,7 +69,7 @@ Rather than confuse people that are used to working with `float` in blueprint, t
 The angelscript integration follows this decision, meaning that when you declare a `float` in script, it is actually a 64-bit double value.
 To create a floating-point variable with a specific width, you can explicitly use the `float32` or `float64` types.
 
-```typescript
+```angelscript
 float ValueDouble = 1.0; // <-- This is a 64-bit double-precision float
 float32 ValueSingle = 1.f; // <-- This is a 32-bit single-precision float
 float64 ValueAlsoDouble = 1.0; // <-- This is *also* a 64-bit double-precision float

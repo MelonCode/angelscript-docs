@@ -1,6 +1,11 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
+import { readFileSync } from "fs";
+
+const angelscriptGrammar = JSON.parse(
+  readFileSync("./src/syntax/angelscript.tmLanguage.json", "utf-8")
+);
 
 // https://astro.build/config
 export default defineConfig({
@@ -16,24 +21,6 @@ export default defineConfig({
         {
           label: "Home",
           link: "/",
-        },
-        {
-          label: "Resources",
-          items: [
-            {
-              label: "Script API Reference",
-              link: "https://angelscript.hazelight.se/api/",
-            },
-            {
-              label: "Original Documentation",
-              link: "https://angelscript.hazelight.se/",
-            },
-            {
-              label: "Source Repository",
-              link: "https://github.com/Hazelight/Docs-UnrealEngine-Angelscript",
-            },
-          ],
-          collapsed: false,
         },
         {
           label: "Getting Started",
@@ -95,11 +82,11 @@ export default defineConfig({
             },
             {
               label: "Script Mixin Libraries",
-              link: "/cpp-bindings/script-mixin-libraries/",
+              link: "/cpp-bindings/mixin-libraries/",
             },
             {
               label: "Using Precompiled Scripts",
-              link: "/cpp-bindings/using-precompiled-scripts/",
+              link: "/cpp-bindings/precompiled-data/",
             },
           ],
         },
@@ -114,8 +101,32 @@ export default defineConfig({
             { label: "License", link: "/project/license/" },
           ],
         },
+        {
+          label: "Resources",
+          items: [
+            {
+              label: "Script API Reference",
+              link: "https://angelscript.hazelight.se/api/",
+            },
+            {
+              label: "Original Documentation",
+              link: "https://angelscript.hazelight.se/",
+            },
+            {
+              label: "Source Repository",
+              link: "https://github.com/Hazelight/Docs-UnrealEngine-Angelscript",
+            },
+          ],
+          collapsed: false,
+        },
       ],
       customCss: ["./src/styles/custom.css"],
+      expressiveCode: {
+        themes: ["github-dark", "github-light"],
+        shiki: {
+          langs: [angelscriptGrammar],
+        },
+      },
     }),
   ],
 });

@@ -8,7 +8,7 @@ These are exposed to script as namespaces containing a set of related functions.
 
 For example, to set a timer you can call `System::SetTimer()`:
 
-```typescript
+```angelscript
 class ATimerExample : AActor
 {
     UFUNCTION(BlueprintOverride)

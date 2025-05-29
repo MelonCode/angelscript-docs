@@ -7,7 +7,7 @@ Actors and components are two of the fundamental gameplay types in unreal code.
 
 Creating a new actor or component type in script is as simple as creating a new script file and adding a class that inherits from an actor type:
 
-```typescript
+```angelscript
 class AMyActor : AActor
 {
 }
@@ -27,7 +27,7 @@ Default components are automatically created on the actor when it is spawned.
 
 The following class will have two components on it when placed. A scene component at the root, and the custom `UMyComponent` we declared before:
 
-```typescript
+```angelscript
 class AExampleActor : AActor
 {
     UPROPERTY(DefaultComponent)
@@ -44,7 +44,7 @@ Likewise, the default attachment hierarchy is specified in `UPROPERTY` specifier
 
 If an explicit attachment is not specified, the component will be attached to the actor's root.
 
-```typescript
+```angelscript
 class AExampleActor : AActor
 {
     // Explicit root component
@@ -71,7 +71,7 @@ class AExampleActor : AActor
 
 To assign default values to properties on the actor's components, you can use `default` statements:
 
-```typescript
+```angelscript
 class AExampleActor : AActor
 {
     UPROPERTY(DefaultComponent, RootComponent)
@@ -99,7 +99,7 @@ class AExampleActor : AActor
 
 If you have an actor and want to find a component of a type on it, use `UMyComponentClass::Get()`:
 
-```typescript
+```angelscript
 AActor Actor;
 
 // Retrieve the first skeletal mesh component we can find on the actor
@@ -113,7 +113,7 @@ If no component of the specified type exists, this will return `nullptr`.
 
 Use `UMyComponentClass::GetOrCreate()` to retrieve a potential existing component, or create it if one does not exist already:
 
-```typescript
+```angelscript
 // Find our own interaction handling component on the actor.
 // If it does not exist, create it.
 UInteractionComponent InteractComp = UInteractionComponent::GetOrCreate(Actor);
@@ -128,7 +128,7 @@ auto ClimbComp = UInteractionComponent::GetOrCreate(Actor, n"ClimbingInteraction
 Creating a new component works similarly by calling `UMyComponentClass::Create()`.
 Specifying a component name is optional, if none is specified one will be automatically generated.
 
-```typescript
+```angelscript
 ACharacter Character;
 
 // Create a new static mesh component on the character and attach it to the character mesh
@@ -143,7 +143,7 @@ NewComponent.AttachToComponent(Character.Mesh);
 
 Helpers for spawning actors of a specific type are also available:
 
-```typescript
+```angelscript
 // Spawn a new Example Actor at the specified location and rotation
 FVector SpawnLocation;
 FRotator SpawnRotation;
@@ -157,7 +157,7 @@ To do this, use a `TSubclassOf<>` property to reference the blueprint, and use t
 
 An example of a spawner actor that can be configured to spawn any blueprint of an example actor:
 
-```typescript
+```angelscript
 class AExampleSpawner : AActor
 {
     /**
@@ -188,7 +188,7 @@ From construction scripts, you can create new components and override properties
 
 For example, an actor that creates a variable amount of meshes inside it based on its settings in the level could look like this:
 
-```typescript
+```angelscript
 class AExampleActor : AActor
 {
     // How many meshes to place on the actor
@@ -222,7 +222,7 @@ This function takes a `?` parameter, and will determine which component type to 
 
 For example, to get all static meshes on an actor:
 
-```typescript
+```angelscript
 AActor Actor;
 
 TArray<UStaticMeshComponent> StaticMeshComponents;
@@ -236,7 +236,7 @@ for (UStaticMeshComponent MeshComp : StaticMeshComponents)
 
 Similarly, to get all actors of a particular type that are currently in the world, use the `GetAllActorsOfClass()` global function, and pass in an array of the type of actor you want:
 
-```typescript
+```angelscript
 // Find all niagara actors currently in the level
 TArray < ANiagaraActor > NiagaraActors;
 GetAllActorsOfClass(NiagaraActors);
@@ -250,7 +250,7 @@ GetAllActorsOfClass(NiagaraActors);
 Unreal provides a mechanism for overriding one of a parent actor class' default components to use a child component class instead of the one specified on the parent actor.
 In script, this can be accessed by using the `OverrideComponent` specifier:
 
-```typescript
+```angelscript
 class ABaseActor : AActor
 {
     // This base actor specifies a root component that is just a scene component

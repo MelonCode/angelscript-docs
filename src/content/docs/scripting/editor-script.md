@@ -13,7 +13,7 @@ This could be things like actor labels, editor subsystems or visualizers, etc.
 If you need to use editor-only code within a class, you can use the `#if EDITOR` preprocessor statement around the code.
 Any code within these blocks is not compiled outside of the editor, and can safely use editor-only functionality.
 
-```typescript
+```angelscript
 class AExampleActor : AActor
 {
 #if EDITOR

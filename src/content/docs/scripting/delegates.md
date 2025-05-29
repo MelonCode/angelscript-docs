@@ -8,14 +8,14 @@ description: Working with delegates and events in Angelscript
 You must first declare a delegate type to indicate what parameters and return value your delegate wants.  
 In global scope:
 
-```typescript
+```angelscript
 // Declare a new delegate type with this function signature
 delegate void FExampleDelegate(UObject Object, float Value);
 ```
 
 From there, you can pass around values of your delegate type, bind them, and execute them:
 
-```typescript
+```angelscript
 class ADelegateExample : AActor
 {
     FExampleDelegate StoredDelegate;
@@ -54,7 +54,7 @@ Events are similar to delegates, but can have multiple functions added to them, 
 
 Declare events with the `event` keyword in global scope, then use `AddUFunction()` and `Broadcast()`:
 
-```typescript
+```angelscript
 event void FExampleEvent(int Counter);
 
 class AEventExample : AActor

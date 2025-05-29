@@ -5,7 +5,7 @@ description: Creating and using subsystems in Angelscript
 
 [Subsystems](https://docs.unrealengine.com/5.0/en-US/unreal-engine-subsystems/) are a Unreal's way to create singletons that collect common functionality. They can be accessed by using the `USubsystemClass::Get()` method:
 
-```typescript
+```angelscript
 // World Subsystem
 UWorldSubsystem MySubsystem = UMyWorldSubsystem::Get();
 // Game Instance Subsystem
@@ -24,7 +24,7 @@ UMyEditorSubsystem EditorSubsystem = UMyEditorSubsystem::Get();
 
 ## Creating Subsystems in Script
 
-```typescript
+```angelscript
 // A world subsystem
 class UMyWorldSubsystem : UWorldSubsystem
 {
