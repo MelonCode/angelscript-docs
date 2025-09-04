@@ -3,75 +3,86 @@ title: Subsystems
 description: Creating and using subsystems in Angelscript
 ---
 
-[Subsystems](https://docs.unrealengine.com/5.0/en-US/unreal-engine-subsystems/) are a Unreal's way to create singletons that collect common functionality. They can be accessed by using the `USubsystemClass::Get()` method:
+# Subsystems
+
+Subsystems are one of unreal's ways to collect common functionality into easily accessible singletons.
+See the [Unreal Documentation on Programming Subsystems](https://docs.unrealengine.com/5.1/en-US/programming-subsystems-in-unreal-engine/) for more details.
+
+## Using a Subsystem
+
+Subsystems in script can be retrieved by using `USubsystemClass::Get()`.
 
 ```angelscript
-// World Subsystem
-UWorldSubsystem MySubsystem = UMyWorldSubsystem::Get();
-// Game Instance Subsystem
-UMyGameInstanceSubsystem GISubsystem = UMyGameInstanceSubsystem::Get();
-// Local Player Subsystem
-UMyLocalPlayerSubsystem LPSubsystem = UMyLocalPlayerSubsystem::Get();
-// Engine Subsystem
-UMyEngineSubsystem EngineSubsystem = UMyEngineSubsystem::Get();
-// Editor Subsystem, only available in editor
-UMyEditorSubsystem EditorSubsystem = UMyEditorSubsystem::Get();
+void TestCreateNewLevel()
+{
+    auto LevelEditorSubsystem = ULevelEditorSubsystem::Get();
+    LevelEditorSubsystem.NewLevel("/Game/NewLevel");
+}
 ```
 
-> **Note:** Subsystems can be created in script as well as in C++.
+> **Note:** Many subsystems are _Editor Subsystems_ and cannot be used in packaged games.
+> Make sure you only use editor subsystems inside [Editor-Only Script](/scripting/editor-script/).
 
-> **Warning:** Many subsystems are editor specific and cannot be used in packaged game builds. You need to make sure that the subsystem you're using is in a runtime module and not in an editor-only module.
+## Creating a Subsystem
 
-## Creating Subsystems in Script
+To allow creating subsystems in script, helper base classes are available to inherit from that expose overridable functions.
+These are:
+
+- `UScriptWorldSubsystem` for world subsystems
+- `UScriptGameInstanceSubsystem` for game instance subsystems
+- `UScriptLocalPlayerSubsystem` for local player subsystems
+- `UScriptEditorSubsystem` for editor subsystems
+- `UScriptEngineSubsystem` for engine subsystems
+
+For example, a scripted world subsystem might look like this:
 
 ```angelscript
-// A world subsystem
-class UMyWorldSubsystem : UWorldSubsystem
+class UMyGameWorldSubsystem : UScriptWorldSubsystem
 {
-    // USubsystem interface
     UFUNCTION(BlueprintOverride)
-    void Initialize(FSubsystemCollectionBase& Collection)
+    void Initialize()
     {
-        // Initialization code
+        Print("MyGame World Subsystem Initialized!");
     }
 
     UFUNCTION(BlueprintOverride)
-    void Deinitialize()
+    void Tick(float DeltaTime)
     {
-        // Cleanup code
+        Print("Tick");
     }
-    // End USubsystem interface
 
-    // My custom method that calls into other subsystems
+    // Create functions on the subsystem to expose functionality
     UFUNCTION()
-    void MyCustomMethod()
+    void LookAtMyActor(AActor Actor)
     {
-        // We can access other subsystems.
-        UGameplayStatics::GetGameInstance(this).GetSubsystem(UMyGameInstanceSubsystem::StaticClass());
     }
 }
 
-// A game instance subsystem
-class UMyGameInstanceSubsystem : UGameInstanceSubsystem
+void UseMyGameWorldSubsystem()
 {
-    // ...
-}
-
-// A local player subsystem
-class UMyLocalPlayerSubsystem : ULocalPlayerSubsystem
-{
-    // ...
-}
-
-// An engine subsystem
-class UMyEngineSubsystem : UEngineSubsystem
-{
-    // ...
-}
-
-// An editor subsystem
-class UMyEditorSubsystem : UEditorSubsystem
-{
-    // ...
+    auto MySubsystem = UMyGameWorldSubsystem::Get();
+    MySubsystem.LookAtMyActor(nullptr);
 }
 ```
+
+Any `UFUNCTION`s you've declared can also be accessed from blueprint on your subsystem:
+
+![](/img/scripted-subsystem.png)
+
+## Local Player Subsystems
+
+In case of local player subsystems, you need to pass which `ULocalPlayer` to retrieve the subsystem for into the `::Get()` function:
+
+```angelscript
+class UMyPlayerSubsystem : UScriptLocalPlayerSubsystem
+{
+}
+
+void UseScriptedPlayerSubsystem()
+{
+    ULocalPlayer RelevantPlayer = Gameplay::GetPlayerController(0).LocalPlayer;
+    auto MySubsystem = UMyPlayerSubsystem::Get(RelevantPlayer);
+}
+```
+
+> **Note:** It is also possible to directly pass an `APlayerController` when retrieving a local player subsystem.

@@ -65,5 +65,5 @@ public:
 }
 ```
 
-> **Note:** The angelscript plugin comes with a number of mixin libraries in it, mostly to expose C++ functionality that is not normally exposed to blueprint.  
-> For example, see the [TimelineComponentMixinLibrary](https://github.com/Hazelight/UnrealEngine-Angelscript/blob/angelscript-master/Engine/Plugins/Angelscript/Source/AngelscriptCode/Public/FunctionLibraries/TimelineComponentMixinLibrary.h)
+> **Note:** The angelscript plugin comes with a number of mixin libraries in it, mostly to expose C++ functionality that is not normally exposed to blueprint.
+> For example, see the [GameplayTagMixinLibrary](https://github.com/Hazelight/UnrealEngine-Angelscript/blob/angelscript-master/Engine/Plugins/Angelscript/Source/AngelscriptCode/Public/FunctionLibraries/GameplayTagMixinLibrary.h)
